@@ -269,6 +269,9 @@ function initCategoryFilters() {
         btn.onclick = () => filterByCategory(cat);
         filterContainer.appendChild(btn);
     });
+    
+    // Initialize with all algorithms
+    filterByCategory(null);
 }
 
 function filterByCategory(category) {

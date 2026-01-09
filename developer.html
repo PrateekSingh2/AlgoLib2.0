@@ -20,8 +20,8 @@
         .profile-container {
             max-width: 1000px;
             margin: 100px auto 50px;
-            background: #a5bfe7a9; 
-            border: 1px solid #eaeaea;
+            background: var(--bg-secondary); 
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             font-family: 'Segoe UI', sans-serif;
             overflow: visible !important; 
@@ -37,8 +37,8 @@
         }
 
         .profile-card {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 30px;
             text-align: center;
@@ -47,12 +47,12 @@
 
         .profile-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--bg-secondary);
         }
 
         .role-badge {
             display: inline-block;
-            background: #2c3e50;
+            background: var(--accent-color);
             color: #fff;
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -68,7 +68,7 @@
             height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #fff;
+            border: 4px solid var(--bg-secondary);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             margin-bottom: 15px;
         }
@@ -76,13 +76,13 @@
         .user-name {
             font-size: 1.6rem;
             font-weight: 700;
-            color: #111;
+            color: var(--text-primary);
             margin: 0 0 5px 0;
         }
 
         .user-tagline {
             font-size: 0.95rem;
-            color: #555;
+            color: var(--text-secondary);
             margin-bottom: 20px;
         }
 
@@ -97,8 +97,8 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #fff;
-            color: #333;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -107,7 +107,7 @@
             font-size: 1.2rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .social-btn:hover { background: #007bff; color: #fff; transform: scale(1.1); }
+        .social-btn:hover { background: var(--accent-color); color: #fff; transform: scale(1.1); }
 
         .info-grid {
             display: flex;
@@ -117,16 +117,16 @@
         }
 
         .info-card {
-            background: #fff;
+            background: var(--bg-secondary);
             padding: 30px;
             border-radius: 8px;
-            border-left: 5px solid #007bff; /* Blue accent bar */
+            border-left: 5px solid var(--accent-color);
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .info-card h3 {
             margin-top: 0;
-            color: #222;
+            color: var(--text-primary);
             font-size: 1.4rem;
             display: flex;
             align-items: center;
@@ -134,7 +134,7 @@
         }
         
         .info-card p {
-            color: #555;
+            color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 15px;
         }
@@ -149,12 +149,12 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 10px;
-            color: #444;
+            color: var(--text-secondary);
             font-weight: 500;
         }
         .step-icon {
-            color: #007bff;
-            background: #eef5ff;
+            color: #fff;
+            background: var(--accent-color);
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -165,9 +165,9 @@
         }
 
         .reward-box {
-            background: #fdf8e4;
-            border: 1px solid #faeacc;
-            color: #8a6d3b;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
             padding: 15px;
             border-radius: 6px;
             margin-top: 15px;
@@ -199,6 +199,7 @@
                    oninput="showSuggestions(this)" onkeypress="handleEnter(event)">
             <div id="suggestionBox" class="suggestion-box hidden"></div>
         </div>
+        <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
     </nav>
 
     <div class="profile-container">

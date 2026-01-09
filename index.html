@@ -22,11 +22,11 @@
             <a href="index.html" class="nav-link active">Home</a>
             <a href="developer.html" class="nav-link">Developer</a>
         </div>
+        <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
     </nav>
 
     <div class="hero-wrapper">
         <div class="hero-header">
-            <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
         </div>
         <h1 class="hero-title">AlgoLib</h1>
         <p class="hero-desc">Optimized Code Snippets for Competitive Programming</p>
@@ -47,11 +47,8 @@
 
         <div class="quick-access-section">
             <p class="qa-label">Quick Explore:</p>
-            <div class="tags-container">
-                <a href="https://algolib.netlify.app/view.html?algo=binarysearch" class="tag-btn">Binary Search</a>
-                <a href="https://algolib.netlify.app/view.html?algo=dnf" class="tag-btn">Dutch National Flag</a>
-                <a href="https://algolib.netlify.app/view.html?algo=kadanes" class="tag-btn">Kadane's Algo</a>
-            </div>
+            <div class="category-filters" id="categoryFilters"></div>
+            <div class="tags-container" id="tagsContainer"></div>
         </div>
     </div>
 
