@@ -1,0 +1,424 @@
+/* =========================================
+   1. GLOBAL RESET & LAYOUT
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body { 
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif; 
+    background: #f9f9f9; 
+    color: #333; 
+    position: relative;
+}
+
+/* Background Video */
+#bg-video-home, #bg-video-tab {
+    position: fixed; 
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: -1; 
+    object-fit: cover;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Forces content to fill space so footer sits at bottom */
+.hero-wrapper, 
+.content-wrapper, 
+.developer-wrapper,
+.profile-container {
+    flex: 1; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 60px;
+    background: #92aed6;
+    border-bottom: 1px solid #eaeaea;
+    display: flex; 
+    align-items: center; 
+    padding: 0 30px; 
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #000;
+    text-decoration: none;
+    margin-right: auto;
+    white-space: nowrap;
+}
+
+.nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.nav-link:hover { color: #c02424; }
+.nav-link.active { color: #506f6e; }
+
+/* Navbar Search Box (Desktop) */
+.search-wrapper {
+    position: relative;
+    width: 250px;
+    margin-left: auto; 
+}
+
+.nav-input {
+    padding: 8px 12px;
+    border: 1px solid #333;
+    border-radius: 15px;
+    background: #f5f5f5;
+    font-size: 0.95rem;
+    width: 100%;
+    height: 35px;
+    outline: none;
+}
+
+/* Suggestions Dropdown */
+.suggestion-box {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 2000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+}
+
+.suggestion-item:hover {
+    background: #f8f9fa;
+    color: #007bff;
+}
+
+.hidden { display: none; }
+
+
+/* =========================================
+   3. HOME PAGE
+   ========================================= */
+.hero-wrapper {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 60px; 
+    padding: 40px 20px;
+    min-height: calc(100vh - 60px - 60px); 
+}
+
+.hero-title { font-size: 2.5rem; margin-bottom: 10px; color: #111; }
+.hero-desc { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
+
+.search-wrapper-home {
+    position: relative;
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto 25px;
+    display: flex;   
+    gap: 10px;       
+}
+
+.nav-input-home {
+    flex: 1; 
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    height: 45px;
+}
+
+.search-btn {
+    padding: 0 25px;
+    height: 45px;
+    background-color: #076c60;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap; 
+    transition: background 0.2s;
+}
+.search-btn:hover { background-color: #054d44; }
+
+.btn-home-primary2, .tag-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    margin: 5px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: #444;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.btn-home-primary2:hover, .tag-btn:hover {
+    border-color: #007bff; 
+    color: #007bff;
+    background-color: #f0f8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   4. CONTENT & CODE BOXES
+   ========================================= */
+.content-wrapper, 
+.developer-wrapper, 
+.profile-container {
+    max-width: 900px;
+    margin: 100px auto 50px; 
+    padding: 0 20px;
+    width: 100%;
+    align-self: center;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.section-desc {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.complexity-box {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-bottom: 35px;
+    color: #444;
+}
+.complexity-box p { margin: 5px 0; font-size: 0.95rem; }
+
+/* Code Box Styles */
+.code-box {
+    margin-top: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    font-family: 'Fira Code', 'Consolas', monospace;
+    border: 1px solid #333;
+    width: 100%; 
+}
+
+.tab-content { 
+    display: none; 
+    background: #1e1e1e;
+}
+.tab-content.active { 
+    display: block; 
+}
+
+/* --- THE FIX: Force Vertical Wrapping & Override Prism.js --- */
+/* We use !important to beat the external library's specificity */
+pre[class*="language-"],
+code[class*="language-"] {
+    white-space: pre !important;   /* preserve newlines */
+    overflow-x: auto !important;   /* allow horizontal scroll */
+    tab-size: 4;
+}
+
+/* Standard pre styling */
+pre {
+    margin: 0 !important;
+    padding: 20px;         
+    line-height: 1.6;      
+    color: #e0e0e0 !important;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.95rem;
+    height: auto; 
+}
+
+.tabs {
+    background: #2d2d2d;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #333;
+    position: relative;
+}
+
+.tabs::before {
+    content: "";
+    display: inline-block;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #ff5f56; 
+    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+    margin-right: 40px; 
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.tab-btn.active {
+    color: #fff;
+    border-bottom: 2px solid #007bff;
+}
+
+.tab-btn:hover { color: #fff; }
+
+.copy-btn {
+    margin-left: auto; 
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #555;
+    color: #ddd;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: #fff;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background-color: rgb(200, 201, 246);
+    color: #210202;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: auto;
+    z-index: 10;
+}
+
+
+/* =========================================
+   5. MOBILE OPTIMIZATION
+   ========================================= */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 160px; 
+        padding: 15px 10px !important;
+        justify-content: flex-start !important;
+        gap: 10px;
+    }
+
+    .nav-brand {
+        position: static !important;
+        margin: 0 0 5px 0 !important;
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+
+    .nav-links {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 5px 0 !important;
+        gap: 20px;
+    }
+    
+    .search-wrapper {
+        position: static !important;
+        width: 90% !important;
+        margin: 5px auto !important;
+    }
+
+    .hero-wrapper {
+        margin-top: 200px !important; 
+        min-height: auto !important; 
+    }
+
+    .content-wrapper,
+    .developer-wrapper,
+    .profile-container {
+        margin-top: 210px !important; 
+        margin-bottom: 40px;
+    }
+    
+    .search-wrapper-home {
+        flex-direction: column; 
+        width: 100%;
+    }
+    .search-btn {
+        width: 100%; 
+        margin-top: 10px;
+    }
+
+    .hero-title { font-size: 2rem; }
+    .section-title { font-size: 1.8rem; }
+}

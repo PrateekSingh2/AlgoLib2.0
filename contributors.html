@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall of Fame - AlgoLib</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        html, body {
+            height: auto !important;
+            min-height: 100vh;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            margin: 100px auto 50px;
+            background: #a5bfe7a9; 
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: visible !important; 
+            height: auto !important;
+            padding: 40px;
+        }
+
+        
+        /* Main Container matching your theme */
+        .hall-container {
+            max-width: 1100px;
+            margin: 100px auto 50px;
+            background: #a5bfe7a9; /* Soft Blue Theme */
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+            min-height: 60vh;
+        }
+
+        .hall-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hall-title {
+            font-size: 2.2rem;
+            color: #111;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .hall-desc {
+            color: #444;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- THE GRID SYSTEM --- */
+        .contributors-grid {
+            display: grid;
+            /* Auto-fit: Creates as many columns as fit (min 280px wide) */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 10px;
+        }
+
+        /* --- CONTRIBUTOR CARD --- */
+        .contrib-card {
+            background: rgba(255, 255, 255, 0.6); /* Glass effect */
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contrib-card:hover {
+            transform: translateY(-8px);
+            background: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Avatar Styling */
+        .contrib-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .contrib-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .contrib-work {
+            color: #007bff; /* Blue text for what they fixed */
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contrib-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* LinkedIn Button */
+        .linkedin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0077b5; /* LinkedIn Blue */
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .linkedin-btn:hover {
+            background: #005582;
+        }
+
+        /* Special Decoration for "Top" Contributors */
+        .gold-border {
+            border: 2px solid #ffd700; /* Gold */
+        }
+        .medal-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+        .footer {
+            margin-top: auto; /* Safety net: pushes footer to bottom in flex container */
+            width: 100%;
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .hall-container {
+                margin-top: 180px; /* Clears navbar */
+                padding: 20px;
+            }
+            .hall-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <video autoplay muted loop id="bg-video-tab">
+        <source src="https://ik.imagekit.io/g7e4hyclo/proxy1.mp4" type="video/mp4">
+    </video>
+
+    <nav class="navbar app-mode">
+        <a href="index.html" class="nav-brand"><span class="nav-logo">&lt;/&gt;</span>AlgoLib</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="developer.html" class="nav-link">Developer</a>
+            <a href="contributors.html" class="nav-link active">Contributors</a>
+        </div>
+        
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="nav-input" placeholder="Search..." 
+                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)">
+            <div id="suggestionBox" class="suggestion-box hidden"></div>
+        </div>
+    </nav>
+
+    <div class="hall-container">
+        
+        <div class="hall-header">
+            <h1 class="hall-title"><i class="fa-solid fa-trophy"></i> Contributors Hall of Fame</h1>
+            <p class="hall-desc">
+                A huge shoutout to the amazing developers who helped optimize AlgoLib. 
+                Their contributions make this platform faster and better for everyone.
+            </p>
+        </div>
+
+        <div class="contributors-grid">
+            <p class="hall-desc">
+                <br>Become the contributor in out <strong>AlgoLib</strong>
+            </p>
+            <!-- <div class="contrib-card gold-border">
+                <i class="fa-solid fa-medal medal-icon"></i>
+                <h3 class="contrib-name">Aarav Sharma</h3>
+                <div class="contrib-work">Fixed Graph Algorithms</div>
+                <p class="contrib-desc">
+                    Optimized the Dijkstra implementation and added comments to BFS/DFS traversals.
+                </p>
+                <a href="https://linkedin.com" target="_blank" class="linkedin-btn">
+                    <i class="fa-brands fa-linkedin"></i> Connect
+                </a>
+            </div>
+
+            <div class="contrib-card">
+                <h3 class="contrib-name">Sneha Gupta</h3>
+                <div class="contrib-work">Added Python Support</div>
+                <p class="contrib-desc">
+                    Translated 15+ C++ algorithms into Python with efficient space complexity.
+                </p>
+                <a href="https://linkedin.com" target="_blank" class="linkedin-btn">
+                    <i class="fa-brands fa-linkedin"></i> Connect
+                </a>
+            </div> -->
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 AlgoLib Made with ❤️🎵 -All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

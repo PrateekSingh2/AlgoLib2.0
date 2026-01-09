@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer - AlgoLib</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        html, body {
+            height: auto !important;
+            min-height: 100vh;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            margin: 100px auto 50px;
+            background: #a5bfe7a9; 
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: visible !important; 
+            height: auto !important;
+            padding: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .user-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #111;
+            margin: 0 0 5px 0;
+        }
+
+        .user-tagline {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .social-btn:hover { background: #007bff; color: #fff; transform: scale(1.1); }
+
+        .info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid #007bff; /* Blue accent bar */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+            color: #222;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        .steps-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            color: #444;
+            font-weight: 500;
+        }
+        .step-icon {
+            color: #007bff;
+            background: #eef5ff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .reward-box {
+            background: #fdf8e4;
+            border: 1px solid #faeacc;
+            color: #8a6d3b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .profile-container { margin-top: 160px; padding: 20px; }
+        }
+
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video-tab">
+        <source src="https://ik.imagekit.io/g7e4hyclo/proxy1.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <nav class="navbar app-mode">
+        <a href="index.html" class="nav-brand"><span class="nav-logo">&lt;/&gt;</span>AlgoLib</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="developer.html" class="nav-link active">Developer</a>
+        </div>
+        
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="nav-input" placeholder="Search..." 
+                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)">
+            <div id="suggestionBox" class="suggestion-box hidden"></div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        
+        <div class="team-grid">
+            <div class="profile-card">
+                <span class="role-badge">Lead Developer</span><br>
+                <img src="https://ik.imagekit.io/g7e4hyclo/photo.jpg" alt="Prateek Singh" class="avatar">
+                <h2 class="user-name">Prateek Singh</h2>
+                <p class="user-tagline">B.Tech AI Student & Competitive Programmer</p>
+                <div class="social-links">
+                    <a href="https://github.com/prateeksingh2" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/rajawatprateeksingh" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=v.rajawatprateeksingh@gmail.com&su=Bug/Contribution/Inquiry%20from%20AlgoLib&body=Hello%20there,%20I%20saw%20your%20site..." target="_blank" class="social-btn"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <span class="role-badge" style="background: #506f6e;">Co-Developer</span><br>
+                <img src="https://ik.imagekit.io/g7e4hyclo/co-photo.jpg" alt="Co-Developer" class="avatar"> 
+                
+                <h2 class="user-name">Shivansh Sahu</h2>
+                <p class="user-tagline">B.Tech AI Student & Competitive Programmer</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/shivanshmax-Monster" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/shivansh-sahu-523a5a391" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=shivanshmax@gmail.com&su=Bug/Contribution/Inquiry%20from%20AlgoLib&body=Hello%20there,%20I%20saw%20your%20site..."" target="_blank" class="social-btn"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            
+            <div class="info-card">
+                <h3><i class="fa-solid fa-layer-group"></i> About AlgoLib</h3>
+                <p>
+                    <strong>AlgoLib</strong> is an open-source library built to solve a common problem faced by competitive programmers: <em>the repetitive task of writing standard algorithms from scratch.</em>
+                </p>
+                <p>
+                    Whether you are competing on LeetCode, CodeChef, or Codeforces, saving time on implementation can be the difference between a win and a loss. This website provides optimized, copy-paste-ready implementations of complex algorithms in <strong>Java, and C++</strong>. It serves as a quick reference tool for students and developers to visualize code logic and speed up their development workflow.
+                </p>
+            </div>
+
+            <div class="info-card" style="border-left-color: #28a745;">
+                <h3 style="color: #28a745;"><i class="fa-solid fa-code-branch"></i> How to Contribute</h3>
+                <p>
+                    AlgoLib is community-driven! If you have a more optimized version of an algorithm, or if you want to add a new algorithm that isn't listed here, follow these steps:
+                </p>
+                
+                <ul class="steps-list">
+                    <li>
+                        <div class="step-icon">1</div>
+                        <span><strong>Fork the Repository:</strong> Go to our <a href="https://github.com/PrateekSingh2/AlgoLib_Contribution" target="_blank">this</a> GitHub and fork the "AlgoLib_Contribution" repo.</span>
+                    </li>
+                    <li>
+                        <div class="step-icon">2</div>
+                        <span><strong>Add Your Code:</strong> Add your algorithm file (e.g., <code>xyzAlgo.java</code> or <code>xyzAlgo.cpp</code>). Ensure code is clean.</span>
+                    </li>
+                    <li>
+                        <div class="step-icon">3</div>
+                        <span><strong>Pull Request:</strong> Submit a Pull Request with a clear description of your changes.</span>
+                    </li>
+                </ul>
+
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    <em>*Alternatively, if you are not comfortable with Git, you can mail your code snippet directly to the Lead/Co Developer.</em>
+                </p>
+
+                <div class="reward-box">
+                    <i class="fa-solid fa-trophy"></i> <strong>Rewards:</strong> 
+                    Verified contributors will be officially listed in our "Contributors Hall of Fame" section on this website as a token of appreciation! <a href="contributors.html">View Contributors</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 AlgoLib Made with ❤️🎵 -All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

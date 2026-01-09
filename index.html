@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLib - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <video autoplay muted loop id="bg-video-home">
+        <source src="https://ik.imagekit.io/g7e4hyclo/proxy2.mp4" type="video/mp4">
+    </video>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand"><span class="nav-logo">&lt;/&gt;</span>AlgoLib</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="developer.html" class="nav-link">Developer</a>
+        </div>
+    </nav>
+
+    <div class="hero-wrapper">
+        <div class="rec-typewritter">
+            </div>
+        <h1 class="hero-title">AlgoLib</h1>
+        <p class="hero-desc">Optimized Code Snippets for Competitive Programming</p>
+
+        <div class="search-wrapper-home">
+            <input type="text" class="nav-input-home" id="searchInput" 
+                placeholder="Search (e.g. sorting)..." 
+                oninput="showSuggestions(this)" 
+                onkeypress="handleEnter(event)">
+            
+            <button class="search-btn" onclick="executeSearch()">Search</button>
+            
+            <p id="error-msg" class="hidden error" style="color: red; margin-top: 10px; font-weight: bold;">⚠️ Algorithm not found!</p>
+            
+            <div class="suggestion-box hidden"></div>
+        </div>
+
+        <div class="quick-access-section">
+            <p class="qa-label">Quick Explore:</p>
+            <div class="tags-container">
+                <a href="view.html?algo=binarysearch" class="tag-btn">Binary Search</a>
+                <a href="view.html?algo=dnf" class="tag-btn">Dutch National Flag</a>
+                <a href="view.html?algo=kadanes" class="tag-btn">Kadane's Algo</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 AlgoLib Made with ❤️🎵 -All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
