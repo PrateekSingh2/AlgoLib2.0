@@ -163,7 +163,6 @@
             justify-content: center;
             font-size: 0.9rem;
         }
-
         .reward-box {
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
@@ -193,13 +192,15 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="developer.html" class="nav-link active">Developer</a>
         </div>
-        
+        <div class="nav-controls">
+            <button id="theme-toggle-nav" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
         <div class="search-wrapper">
             <input type="text" id="searchInput" class="nav-input" placeholder="Search..." 
-                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)">
-            <div id="suggestionBox" class="suggestion-box hidden"></div>
+                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)"
+                   aria-label="Search algorithms">
+            <div id="suggestionBox" class="suggestion-box hidden" role="listbox"></div>
         </div>
-        <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
     </nav>
 
     <div class="profile-container">
@@ -253,7 +254,7 @@
                 <ul class="steps-list">
                     <li>
                         <div class="step-icon">1</div>
-                        <span><strong>Fork the Repository:</strong> Go to our <a href="https://github.com/PrateekSingh2/AlgoLib_Contribution" target="_blank">this</a> GitHub and fork the "AlgoLib_Contribution" repo.</span>
+                        <span><strong>Fork the Repository:</strong> Go to our <a href="https://github.com/PrateekSingh2/AlgoLib_Contribution" target="_blank" style="color: rgb(109, 109, 237);">this</a> GitHub and fork the "AlgoLib_Contribution" repo.</span>
                     </li>
                     <li>
                         <div class="step-icon">2</div>
@@ -271,7 +272,7 @@
 
                 <div class="reward-box">
                     <i class="fa-solid fa-trophy"></i> <strong>Rewards:</strong> 
-                    Verified contributors will be officially listed in our "Contributors Hall of Fame" section on this website as a token of appreciation! <a href="contributors.html">View Contributors</a>
+                    Verified contributors will be officially listed in our "Contributors Hall of Fame" section on this website as a token of appreciation! <a href="contributors.html" style="color: rgb(109, 109, 237);">View Contributors</a>
                 </div>
             </div>
 
