@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View optimized algorithm implementations in Java and C++ on AlgoLib.">
+    <meta name="theme-color" content="#92aed6">
     <title>Algorithm Viewer - AlgoLib</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -19,17 +21,26 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="developer.html" class="nav-link">Developer</a>
         </div>
+        <div class="nav-controls">
+            <button id="theme-toggle-nav" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
         <div class="search-wrapper">
             <input type="text" id="searchInput" class="nav-input" placeholder="Search..." 
-                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)">
-            <div id="suggestionBox" class="suggestion-box hidden"></div>
+                   oninput="showSuggestions(this)" onkeypress="handleEnter(event)"
+                   aria-label="Search algorithms">
+            <div id="suggestionBox" class="suggestion-box hidden" role="listbox"></div>
         </div>
     </nav>
 
     <div class="content-wrapper">
-        <button onclick="history.back()" style="margin-bottom: 20px; padding: 8px 15px; cursor: pointer; background: transparent; border: 1px solid #333; border-radius: 5px;">
-            <i class="fa-solid fa-arrow-left"></i> Back
-        </button>
+        <div class="content-controls">
+            <button onclick="history.back()" class="btn-back" aria-label="Go back" title="Go back to previous page">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <button id="copy-all-btn" class="btn-copy-all" onclick="copyAllCode()" title="Copy all code" aria-label="Copy all code">
+                <i class="fa-solid fa-copy"></i> Copy All
+            </button>
+        </div>
 
         <h1 class="section-title" id="algo-title">Loading...</h1>
         

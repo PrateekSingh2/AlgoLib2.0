@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AlgoLib - Optimized code snippets for competitive programming in Java and C++. Quick access to algorithms for sorting, searching, graphs, and more.">
+    <meta name="keywords" content="algorithms, competitive programming, Java, C++, data structures">
+    <meta name="author" content="Prateek Singh, Shivansh Sahu">
+    <meta name="theme-color" content="#92aed6">
     <title>AlgoLib - Home</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,8 +25,9 @@
     </nav>
 
     <div class="hero-wrapper">
-        <div class="rec-typewritter">
-            </div>
+        <div class="hero-header">
+            <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
         <h1 class="hero-title">AlgoLib</h1>
         <p class="hero-desc">Optimized Code Snippets for Competitive Programming</p>
 
@@ -30,18 +35,20 @@
             <input type="text" class="nav-input-home" id="searchInput" 
                 placeholder="Search (e.g. sorting)..." 
                 oninput="showSuggestions(this)" 
-                onkeypress="handleEnter(event)">
+                onkeypress="handleEnter(event)"
+                aria-label="Search algorithms">
             
-            <button class="search-btn" onclick="executeSearch()">Search</button>
+            <button class="search-btn" onclick="executeSearch()" aria-label="Execute search">Search</button>
             
             <p id="error-msg" class="hidden error" style="color: red; margin-top: 10px; font-weight: bold;">⚠️ Algorithm not found!</p>
             
-            <div class="suggestion-box hidden"></div>
+            <div class="suggestion-box hidden" role="listbox"></div>
         </div>
 
         <div class="quick-access-section">
             <p class="qa-label">Quick Explore:</p>
-            <div class="tags-container">
+            <div class="category-filters" id="categoryFilters"></div>
+            <div class="tags-container" id="tagsContainer">
                 <a href="view.html?algo=binarysearch" class="tag-btn">Binary Search</a>
                 <a href="view.html?algo=dnf" class="tag-btn">Dutch National Flag</a>
                 <a href="view.html?algo=kadanes" class="tag-btn">Kadane's Algo</a>
