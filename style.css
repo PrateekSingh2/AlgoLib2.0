@@ -227,14 +227,9 @@ body {
     z-index: 2100;
 }
 
-.theme-toggle {
-    margin-left: 420px;
-}
-
 .search-wrapper {
     position: relative; 
     width: 250px; 
-
     margin-right: 40px; 
 }
 
@@ -268,7 +263,8 @@ body {
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
+    margin: 0;
 }
 
 .theme-toggle:hover { 
@@ -782,7 +778,12 @@ pre {
     color: var(--text-primary);
 }
 
-/* MEDIUM / TABLET: ensure search moves to next line on view pages */
+/* --- DEFAULT DESKTOP HIDDEN ELEMENTS --- */
+.search-toggle-mobile {
+    display: none;
+}
+
+/* MEDIUM / TABLET */
 @media screen and (max-width: 1024px) {
     .view-page .navbar { 
         flex-wrap: wrap; 
@@ -815,7 +816,6 @@ pre {
         right: 0; 
     }
     
-    /* Ensure content sits below a larger search/header area on view pages */
     .view-page .content-wrapper { 
         margin-top: calc(var(--navbar-height, 60px) + 80px); 
     }
@@ -832,9 +832,10 @@ pre {
     .nav-brand { 
         margin: 0; 
         display: inline-block; 
+        margin-right: auto; 
     }
 
-    /* Hide desktop central nav-links; we will show overlay when mobile menu opens */
+    /* Hide desktop central nav-links */
     .nav-links { 
         position: absolute; 
         left: 0; 
@@ -868,7 +869,6 @@ pre {
         border-top: 1px solid rgba(255,255,255,0.03); 
     }
 
-    /* show hamburger */
     .menu-toggle { 
         display: inline-flex; 
         background: transparent; 
@@ -884,10 +884,64 @@ pre {
         margin-left: 12px; 
     }
 
+    /* --- FIXED THEME TOGGLE FOR MOBILE --- */
+    .theme-toggle {
+        margin-left: 12px; 
+        margin-right: 0;
+        display: flex;
+    }
+
+    /* --- MOBILE SEARCH ICON LOGIC --- */
     .search-wrapper { 
         position: static !important; 
-        width: 90% !important; 
-        margin: 10px auto !important; 
+        width: auto !important; 
+        margin: 0 !important;
+        margin-right: 12px !important;
+    }
+
+    .search-wrapper .nav-input {
+        display: none;
+    }
+
+    .search-toggle-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid var(--border-color);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: var(--text-primary);
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    
+    .search-toggle-mobile:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+
+    .search-wrapper.active .nav-input {
+        display: block;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        padding-left: 20px;
+    }
+    
+    .search-wrapper.active .search-toggle-mobile {
+        background: var(--bg-secondary-s);
+        color: var(--accent-color);
+        border-color: var(--accent-color);
     }
 
     .nav-controls { 
@@ -910,9 +964,8 @@ pre {
         margin-bottom: 40px; 
     }
 
-    /* Extra top spacing for view pages so back/copy controls are visible below the header/search */
     .view-page .content-wrapper { 
-        margin-top: calc(var(--navbar-height, 50px) + 110px) !important; 
+        margin-top: calc(var(--navbar-height, 50px) + 40px) !important; 
     }
 
     .search-wrapper-home { 

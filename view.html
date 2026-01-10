@@ -9,6 +9,45 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        @media screen and (max-width: 1024px) {
+            .view-page .navbar {
+                flex-wrap: nowrap !important;
+                height: 60px !important;
+                padding-bottom: 0 !important;
+                align-items: center !important;
+            }
+
+            .view-page .nav-links,
+            .view-page .nav-controls,
+            .view-page .search-wrapper {
+                order: unset !important;
+                width: auto !important;
+                margin: 0 !important;
+            }
+
+            .view-page .search-wrapper {
+                position: static !important;
+                margin-right: 12px !important;
+            }
+            
+            @media screen and (max-width: 768px) {
+                .nav-controls {
+                    margin-left: auto !important;
+                }
+                
+                .search-wrapper {
+                    margin-left: 10px !important;
+                    margin-right: 0 !important;
+                }
+
+                .menu-toggle {
+                    margin-left: 10px !important;
+                }
+            }
+        }
+    </style>
 </head>
 <body>
     <video autoplay muted loop id="bg-video-tab">
@@ -17,7 +56,6 @@
 
     <nav class="navbar app-mode">
         <a href="index.html" class="nav-brand"><h3><span>&lt;/&gt;</span>AlgoLib</h3></a>
-        <!-- Hamburger for mobile -->
         <button id="menu-toggle-nav" class="menu-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" aria-hidden="true"></i></button>
         <div class="nav-links" id="nav-links">
             <a href="index.html" class="nav-link">Home</a>
@@ -28,6 +66,10 @@
             <button id="theme-toggle-nav" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
         </div>
         <div class="search-wrapper">
+            <button class="search-toggle-mobile" aria-label="Open Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            
             <input type="text" id="searchInput" class="nav-input" placeholder="Type ctrl [/] to search" 
                    oninput="showSuggestions(this)" onkeypress="handleEnter(event)"
                    aria-label="Search algorithms">
@@ -127,7 +169,7 @@
 
         <div class="footer-bottom">
             <p>
-                &copy; 2026 <strong>AlgoLib</strong>. All rights reserved. | 
+                © 2026 <strong>AlgoLib</strong>. All rights reserved. | 
                 Built with <i class="fa-solid fa-music" style="color: #e25555;"></i>
             </p>
         </div>

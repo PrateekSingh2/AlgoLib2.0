@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('view-page');
     }
 
-    // --- UPDATED SECTION START ---
     const jsonPath = 'https://api.npoint.io/bcd767f5eb569c2592c6'; 
 
     fetch(jsonPath)
@@ -68,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error loading JSON:", err);
             if(document.getElementById('algo-title')) {
                 document.getElementById('algo-title').innerText = "Error Loading Data";
-                // Updated error message to be more helpful for external URLs
                 document.getElementById('algo-desc').innerHTML = `Could not load data from external source.<br>Check console for details or verify the URL.`;
             }
         });
@@ -84,39 +82,63 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenus();
 });
 
-// --- MOBILE MENU HANDLING ---
+// --- MOBILE MENU & SEARCH HANDLING ---
 function initMobileMenus() {
+    // 1. Hamburger Menu Logic
     const toggles = document.querySelectorAll('.menu-toggle');
-    if (!toggles.length) return;
+    if (toggles.length) {
+        toggles.forEach(toggle => {
+            const navbar = toggle.closest('.navbar');
+            const navLinks = navbar.querySelector('.nav-links');
+            const icon = toggle.querySelector('i');
 
-    toggles.forEach(toggle => {
-        const navbar = toggle.closest('.navbar');
-        const navLinks = navbar.querySelector('.nav-links');
-        const icon = toggle.querySelector('i');
+            toggle.setAttribute('aria-expanded', 'false');
+            if (navLinks) navLinks.setAttribute('aria-hidden', 'true');
 
-        toggle.setAttribute('aria-expanded', 'false');
-        if (navLinks) navLinks.setAttribute('aria-hidden', 'true');
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const expanded = navLinks.classList.toggle('expanded');
+                toggle.setAttribute('aria-expanded', expanded);
+                navLinks.setAttribute('aria-hidden', (!expanded).toString());
+                if (icon) {
+                    icon.classList.toggle('fa-bars', !expanded);
+                    icon.classList.toggle('fa-times', expanded);
+                }
+                if (expanded) {
+                    const first = navLinks.querySelector('.nav-link');
+                    if (first) first.focus();
+                }
+            });
 
-        toggle.addEventListener('click', (e) => {
+            navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeAllMobileMenus));
+        });
+    }
+
+    // 2. Mobile Search Icon Logic (NEW)
+    const searchToggles = document.querySelectorAll('.search-toggle-mobile');
+    searchToggles.forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const expanded = navLinks.classList.toggle('expanded');
-            toggle.setAttribute('aria-expanded', expanded);
-            navLinks.setAttribute('aria-hidden', (!expanded).toString());
-            if (icon) {
-                icon.classList.toggle('fa-bars', !expanded);
-                icon.classList.toggle('fa-times', expanded);
-            }
-            if (expanded) {
-                const first = navLinks.querySelector('.nav-link');
-                if (first) first.focus();
+            const wrapper = btn.closest('.search-wrapper');
+            if (wrapper) {
+                wrapper.classList.toggle('active');
+                const input = wrapper.querySelector('input');
+                if (wrapper.classList.contains('active') && input) {
+                    input.focus();
+                }
             }
         });
-
-        navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeAllMobileMenus));
     });
 
+    // Close menus when clicking outside
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.navbar')) closeAllMobileMenus();
+        if (!e.target.closest('.navbar')) {
+            closeAllMobileMenus();
+            // Close search bar if clicked outside (optional, but good UX)
+            document.querySelectorAll('.search-wrapper.active').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
     });
 
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllMobileMenus(); });
@@ -358,7 +380,7 @@ function setupKeyboardShortcuts() {
 
 // --- VISIT COUNTER ---
 const countContainer = document.getElementById("visit-count");
-const NAMESPACE = "algolib.netlify.app";
+const NAMESPACE = "";
 const KEY = "visits";
 
 if (countContainer) {
