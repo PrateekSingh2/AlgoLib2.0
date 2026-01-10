@@ -68,7 +68,7 @@ body.dark-mode {
     top: -12px;
     background: #ff4757;
     color: white;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 10px;
@@ -80,8 +80,8 @@ body.dark-mode {
 }
 
 .blink-dot {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     background: white;
     border-radius: 50%;
     animation: blinker 1.5s linear infinite;
