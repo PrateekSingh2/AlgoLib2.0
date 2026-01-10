@@ -37,12 +37,9 @@ function updateThemeIcon(isDark) {
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
-    // Mark view page for responsive CSS when viewing code
     if (window.location.pathname.includes('view.html')) {
         document.body.classList.add('view-page');
     }
-    // 1. Determine correct path to JSON
-    // If we are inside 'library/' folder (which we shouldn't be, but just in case), go up one level
     const jsonPath = window.location.pathname.includes('/library/') ? '../algorithms.json' : 'algorithms.json';
 
     fetch(jsonPath)
@@ -54,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             algorithms = data;
             console.log("Algorithms loaded:", algorithms.length);
 
-            // 2. Check if we are on 'view.html' and need to load content
             if (window.location.pathname.includes('view.html')) {
                 const params = new URLSearchParams(window.location.search);
                 const algoId = params.get('algo');
@@ -74,23 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     
-    // Initialize category filters on home page (after algorithms are loaded)
     setTimeout(() => {
         if (algorithms.length > 0) {
             initCategoryFilters();
         }
     }, 100);
     
-    // Keyboard shortcuts
     setupKeyboardShortcuts();
 
-    // Initialize mobile menu toggles
     initMobileMenus();
 });
 
 // --- MOBILE MENU HANDLING ---
 function initMobileMenus() {
-    // Target all menu toggles (supports index, view, developer pages)
     const toggles = document.querySelectorAll('.menu-toggle');
     if (!toggles.length) return;
 
@@ -99,7 +91,6 @@ function initMobileMenus() {
         const navLinks = navbar.querySelector('.nav-links');
         const icon = toggle.querySelector('i');
 
-        // Set initial aria
         toggle.setAttribute('aria-expanded', 'false');
         if (navLinks) navLinks.setAttribute('aria-hidden', 'true');
 
@@ -113,25 +104,20 @@ function initMobileMenus() {
                 icon.classList.toggle('fa-times', expanded);
             }
             if (expanded) {
-                // focus first link
                 const first = navLinks.querySelector('.nav-link');
                 if (first) first.focus();
             }
         });
 
-        // Close when a link clicked
         navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeAllMobileMenus));
     });
 
-    // Close when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.navbar')) closeAllMobileMenus();
     });
 
-    // Close on Escape
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllMobileMenus(); });
 
-    // Close on resize if moving to desktop
     window.addEventListener('resize', () => { if (window.innerWidth > 768) closeAllMobileMenus(); });
 }
 
@@ -180,13 +166,11 @@ function executeSearch() {
     const query = input.value.trim();
     const errorMsg = document.getElementById('error-msg');
     
-    // Reset UI
     if(errorMsg) errorMsg.classList.add('hidden');
     input.style.borderColor = "#ccc";
 
     if(!query) return;
 
-    // Search
     const match = algorithms.find(algo => 
         algo.title.toLowerCase() === query.toLowerCase()
     );
@@ -208,7 +192,6 @@ function executeSearch() {
 
 function handleEnter(e) {
     if (e.key === 'Enter') {
-        // Pass the input element context if available, else standard search
         if(e.target) showSuggestions(e.target); 
         executeSearch();
     }
@@ -245,8 +228,6 @@ function showSuggestions(inputElement) {
             const div = document.createElement('div');
             div.className = 'suggestion-item';
             
-            // --- UPDATED HTML HERE ---
-            // Shows Title on left, Category on right
             div.innerHTML = `
                 <span class="suggestion-text">${match.title}</span>
                 <span class="suggestion-tag">${match.category}</span>
@@ -264,11 +245,9 @@ function showSuggestions(inputElement) {
 
 // --- CLOSE SUGGESTIONS ON CLICK OUTSIDE (FIXED) ---
 document.addEventListener('click', (e) => {
-    // Check if we clicked inside ANY search wrapper
     const isInsideSearch = e.target.closest('.search-wrapper') || e.target.closest('.search-wrapper-home');
     
     if (!isInsideSearch) {
-        // Hide ALL suggestion boxes
         document.querySelectorAll('.suggestion-box').forEach(box => {
             box.classList.add('hidden');
         });
@@ -324,10 +303,7 @@ function initCategoryFilters() {
     
     const categories = [...new Set(algorithms.map(a => a.category))].sort();
     
-    // Clear and add "All" button
-    filterContainer.innerHTML = '<button class="category-btn active" onclick="filterByCategory(null)">All</button>';
-    
-    // Add category buttons
+    filterContainer.innerHTML = '<button class="category-btn active" onclick="filterByCategory(null)">Random</button>';
     categories.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'category-btn';
@@ -336,7 +312,6 @@ function initCategoryFilters() {
         filterContainer.appendChild(btn);
     });
     
-    // Initialize with all algorithms
     filterByCategory(null);
 }
 
@@ -346,15 +321,13 @@ function filterByCategory(category) {
     
     const filtered = category ? algorithms.filter(a => a.category === category) : algorithms;
     
-    // Update active button
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
-        if ((category === null && btn.textContent === 'All') || btn.textContent === category) {
+        if ((category === null && btn.textContent === 'Random') || btn.textContent === category) {
             btn.classList.add('active');
         }
     });
     
-    // Show 3 random algorithms from filtered list
     const shuffled = [...filtered].sort(() => 0.5 - Math.random()).slice(0, 3);
     
     tagsContainer.innerHTML = shuffled.map(algo => 
@@ -382,25 +355,37 @@ function setupKeyboardShortcuts() {
 
 // --- VISIT COUNTER ---
 const countContainer = document.getElementById("visit-count");
+const NAMESPACE = "";
+const KEY = "visits";
 
 if (countContainer) {
-    
-    fetch('https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up') 
-    .then(res => res.json())
-    .then(res => {
-        animateValue(countContainer, 0, res.value, 2000);
-    })
-    .catch(err => {
-        console.log("Counter Error:", err);
-        countContainer.innerText = "1,024";
-    });
+    const hasVisited = localStorage.getItem("hasVisited");
+
+    const url = hasVisited 
+        ? `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/` 
+        : `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            const count = res.count || res.value;
+            animateValue(countContainer, 0, count, 2000);
+
+            if (!hasVisited) {
+                localStorage.setItem("hasVisited", "true");
+            }
+        })
+        .catch(err => {
+            console.log("Counter Error:", err);
+            countContainer.innerText = "1,024";
+        });
 }
 
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const progress = Math.min((timestamp - startTimestamp) / duration, 4);
         
         obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
         
