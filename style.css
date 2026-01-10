@@ -419,7 +419,7 @@ pre { margin: 0 !important; padding: 20px; line-height: 1.6; color: var(--code-t
     /* Extra top spacing for view pages so back/copy controls are visible below the header/search */
     .view-page .content-wrapper { margin-top: calc(var(--navbar-height, 50px) + 110px) !important; }
 
-    .search-wrapper-home { flex-direction: column; width: 100%; }
+    .search-wrapper-home { flex-direction: column; width: 70%; }
     .search-btn { width: 100%; margin-top: 10px; }
     .hero-title { font-size: 2rem; }
     .section-title { font-size: 1.8rem; }
