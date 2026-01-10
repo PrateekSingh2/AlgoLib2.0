@@ -37,6 +37,7 @@
         }
 
         .profile-card {
+            position: relative;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 12px;
@@ -48,6 +49,7 @@
         .profile-card:hover {
             transform: translateY(-5px);
             background: var(--bg-secondary);
+            box-shadow: 0 0 10px 1px var(--aura-colour);
         }
 
         .role-badge {
@@ -124,6 +126,9 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+        .info-card:hover{
+            box-shadow: 0 0 10px 1px var(--aura-colour);
+        }
 
         .info-card h3 {
             margin-top: 0;
@@ -171,7 +176,7 @@
             padding: 15px;
             border-radius: 6px;
             margin-top: 15px;
-            font-weight: 500;
+            font-weight: 500;   
         }
 
         @media (max-width: 768px) {
@@ -214,7 +219,7 @@
                 <span class="role-badge">Lead Developer</span><br>
                 <img src="https://ik.imagekit.io/g7e4hyclo/photo.jpg" alt="Prateek Singh" class="avatar">
                 <h2 class="user-name">Prateek Singh</h2>
-                <p class="user-tagline">Core website logic, Design & JAVA/C++ code</p>
+                <p class="user-tagline">Core website logic & design, Effect & Animation, JAVA/C++ code snippet</p>
                 <div class="social-links">
                     <a href="https://github.com/prateeksingh2" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/rajawatprateeksingh" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -227,7 +232,7 @@
                 <img src="https://ik.imagekit.io/g7e4hyclo/co-photo.jpg" alt="Co-Developer" class="avatar"> 
                 
                 <h2 class="user-name">Shivansh Sahu</h2>
-                <p class="user-tagline">Enhanced UI, Theme, Fixed bugs & Proposed idea</p>
+                <p class="user-tagline">Enhanced UI, Dark theme, Fixed bugs & glitches, Mobile optimization</p>
                 
                 <div class="social-links">
                     <a href="https://github.com/shivanshmax-Monster" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
@@ -239,7 +244,7 @@
 
         <div class="info-grid">
             
-            <div class="info-card">
+            <div class="info-card" style="border-left-color: #f18c08;">
                 <h3><i class="fa-solid fa-layer-group"></i> About AlgoLib</h3>
                 <p>
                     <strong>AlgoLib</strong> is a library built to solve a common problem faced by competitive programmers: <em>the repetitive task of writing standard algorithms from scratch.</em>

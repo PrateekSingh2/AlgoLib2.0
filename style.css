@@ -17,6 +17,8 @@
     --navbar-bg: #ccdaf5;
     --code-bg: #1e1e1e;
     --code-text: #e0e0e0;
+    --aura-colour: rgb(21, 1, 1);
+    --badge-colour: #87ee09;
 }
 
 body.dark-mode {
@@ -34,6 +36,8 @@ body.dark-mode {
     --border-color-contri:white;
     --navbar-bg: rgb(34, 34, 47);
     --code-bg: #050505;
+    --aura-colour: rgb(249, 3, 245);
+    --badge-colour: #ffd700;
 }
 .stats-container {
     margin-top: 2px;
