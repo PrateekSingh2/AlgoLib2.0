@@ -40,11 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('view.html')) {
         document.body.classList.add('view-page');
     }
-    const jsonPath = window.location.pathname.includes('/library/') ? '../algorithms.json' : 'algorithms.json';
+
+    // --- UPDATED SECTION START ---
+    const jsonPath = 'https://api.npoint.io/bcd767f5eb569c2592c6'; 
 
     fetch(jsonPath)
         .then(response => {
-            if (!response.ok) throw new Error("Failed to load algorithms.json");
+            if (!response.ok) throw new Error("Failed to load algorithms data");
             return response.json();
         })
         .then(data => {
@@ -66,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error loading JSON:", err);
             if(document.getElementById('algo-title')) {
                 document.getElementById('algo-title').innerText = "Error Loading Data";
-                document.getElementById('algo-desc').innerHTML = `Could not load <b>${jsonPath}</b>. <br>Check if the file exists in the root folder.`;
+                // Updated error message to be more helpful for external URLs
+                document.getElementById('algo-desc').innerHTML = `Could not load data from external source.<br>Check console for details or verify the URL.`;
             }
         });
     
@@ -355,7 +358,7 @@ function setupKeyboardShortcuts() {
 
 // --- VISIT COUNTER ---
 const countContainer = document.getElementById("visit-count");
-const NAMESPACE = "";
+const NAMESPACE = "algolib.netlify.app";
 const KEY = "visits";
 
 if (countContainer) {
