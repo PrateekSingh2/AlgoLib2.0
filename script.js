@@ -380,7 +380,7 @@ function setupKeyboardShortcuts() {
 
 // --- VISIT COUNTER ---
 const countContainer = document.getElementById("visit-count");
-const NAMESPACE = "";
+const NAMESPACE = "algolib.netlify.app";
 const KEY = "visits";
 
 if (countContainer) {
