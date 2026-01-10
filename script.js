@@ -37,6 +37,10 @@ function updateThemeIcon(isDark) {
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
+    // Mark view page for responsive CSS when viewing code
+    if (window.location.pathname.includes('view.html')) {
+        document.body.classList.add('view-page');
+    }
     // 1. Determine correct path to JSON
     // If we are inside 'library/' folder (which we shouldn't be, but just in case), go up one level
     const jsonPath = window.location.pathname.includes('/library/') ? '../algorithms.json' : 'algorithms.json';
@@ -79,7 +83,69 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Keyboard shortcuts
     setupKeyboardShortcuts();
+
+    // Initialize mobile menu toggles
+    initMobileMenus();
 });
+
+// --- MOBILE MENU HANDLING ---
+function initMobileMenus() {
+    // Target all menu toggles (supports index, view, developer pages)
+    const toggles = document.querySelectorAll('.menu-toggle');
+    if (!toggles.length) return;
+
+    toggles.forEach(toggle => {
+        const navbar = toggle.closest('.navbar');
+        const navLinks = navbar.querySelector('.nav-links');
+        const icon = toggle.querySelector('i');
+
+        // Set initial aria
+        toggle.setAttribute('aria-expanded', 'false');
+        if (navLinks) navLinks.setAttribute('aria-hidden', 'true');
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const expanded = navLinks.classList.toggle('expanded');
+            toggle.setAttribute('aria-expanded', expanded);
+            navLinks.setAttribute('aria-hidden', (!expanded).toString());
+            if (icon) {
+                icon.classList.toggle('fa-bars', !expanded);
+                icon.classList.toggle('fa-times', expanded);
+            }
+            if (expanded) {
+                // focus first link
+                const first = navLinks.querySelector('.nav-link');
+                if (first) first.focus();
+            }
+        });
+
+        // Close when a link clicked
+        navLinks.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', closeAllMobileMenus));
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) closeAllMobileMenus();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllMobileMenus(); });
+
+    // Close on resize if moving to desktop
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) closeAllMobileMenus(); });
+}
+
+function closeAllMobileMenus() {
+    document.querySelectorAll('.nav-links.expanded').forEach(nav => {
+        nav.classList.remove('expanded');
+        nav.setAttribute('aria-hidden', 'true');
+    });
+    document.querySelectorAll('#menu-toggle, #menu-toggle-nav').forEach(toggle => {
+        toggle.setAttribute('aria-expanded', 'false');
+        const icon = toggle.querySelector('i');
+        if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+    });
+}
 
 // --- LOAD PAGE CONTENT (view.html) ---
 function loadPageContent(id) {
