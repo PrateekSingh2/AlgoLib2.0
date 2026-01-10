@@ -366,7 +366,7 @@ function filterByCategory(category) {
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey || e.metaKey) {
-            if (e.key === 'k') {
+            if (e.key === '/') {
                 e.preventDefault();
                 const searchInput = document.getElementById('searchInput');
                 if (searchInput) searchInput.focus();
