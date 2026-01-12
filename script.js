@@ -384,33 +384,25 @@ const NAMESPACE = "algolib.netlify.app";
 const KEY = "visits";
 
 if (countContainer) {
-    const hasVisited = localStorage.getItem("hasVisited");
-
-    const url = hasVisited 
-        ? `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/` 
-        : `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`;
-
-    fetch(url)
-        .then(res => res.json())
-        .then(res => {
-            const count = res.count || res.value;
-            animateValue(countContainer, 0, count, 2000);
-
-            if (!hasVisited) {
-                localStorage.setItem("hasVisited", "true");
-            }
-        })
-        .catch(err => {
-            console.log("Counter Error:", err);
-            countContainer.innerText = "1,024";
-        });
+    
+    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`) 
+    .then(res => {
+        return res.json();
+    })
+    .then(res => {
+        animateValue(countContainer, 0, res.value, 500);
+    })
+    .catch(err => {
+        console.error("ERROR OCCURRED:", err);
+        countContainer.innerText = "Error";
+    });
 }
 
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 4);
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         
         obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
         
