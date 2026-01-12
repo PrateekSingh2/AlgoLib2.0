@@ -384,18 +384,19 @@ const NAMESPACE = "algolib.netlify.app";
 const KEY = "visits";
 
 if (countContainer) {
-    
-    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`) 
-    .then(res => {
-        return res.json();
-    })
-    .then(res => {
-        animateValue(countContainer, 0, res.value, 500);
-    })
-    .catch(err => {
-        console.error("ERROR OCCURRED:", err);
-        countContainer.innerText = "Error";
-    });
+    const url = `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            // The API returns the new incremented count
+            const count = res.count || res.value;
+            animateValue(countContainer, 0, count, 1800);
+        })
+        .catch(err => {
+            console.log("Counter Error:", err);
+            countContainer.innerText = "Error";
+        });
 }
 
 function animateValue(obj, start, end, duration) {
