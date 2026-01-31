@@ -41,8 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('view-page');
     }
 
-    const jsonPath = 'https://api.npoint.io/bcd767f5eb569c2592c6'; 
-
+    const GIST_ID = 'c1016b41398f598bb21891f2b53dabd0'; 
+    const jsonPath = `https://gist.githubusercontent.com/PrateekSingh2/${GIST_ID}/raw/algorithms.json`;
+    
     fetch(jsonPath)
         .then(response => {
             if (!response.ok) throw new Error("Failed to load algorithms data");
