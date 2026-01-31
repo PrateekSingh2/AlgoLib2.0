@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintinance - AlgoLib</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .maintenance-box {
+            max-width: 800px;
+            width: 100%;
+            padding: 50px 30px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .maintenance-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .maintenance-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-weight: 500;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .maintenance-text {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .maintenance-box {
+                padding: 35px 20px;
+            }
+        }
+        #bg-video-mainti, #bg-video-tab {
+            position: fixed;
+            right: 0; 
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video-mainti">
+        <source src="../maintenance1.mp4" type="video/mp4">
+    </video>
+    <nav class="navbar">
+        <a href="" class="nav-brand"><h3><span>&lt;/&gt;</span>AlgoLib</h3></a>
+        <button id="menu-toggle" class="menu-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" aria-hidden="true"></i></button>
+        
+        <div class="nav-links" id="nav-links">
+            <a href="" class="nav-link active">Home</a>
+            <a href="" class="nav-link">Developer</a>
+            <a href="" class="nav-link">Contributors</a>
+        </div>
+
+        <div class="nav-controls">
+            <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+    <div class="maintenance-box">
+        <h1 class="maintenance-title">Website Under Maintenance</h1>
+        <h2 class="maintenance-subtitle">We will be back soon</h2>
+        <p class="maintenance-text">
+        Our website is currently undergoing scheduled maintenance to improve
+        performance and bring you a better experience.  
+        <br><br>
+        Thank you for your patience and understanding.
+        <br>Please check back shortly.
+        </p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
